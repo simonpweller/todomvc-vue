@@ -6,14 +6,14 @@
 </template>
 
 <script>
-import TodoList from './components/TodoList.vue'
-import InfoFooter from './components/InfoFooter'
+import TodoList from "./components/TodoList.vue";
+import InfoFooter from "./components/InfoFooter";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     TodoList: TodoList,
     InfoFooter: InfoFooter,
-  }
-}
+  },
+};
 </script>
