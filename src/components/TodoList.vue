@@ -1,16 +1,6 @@
 <template>
   <section class="todoapp">
-    <header class="header">
-      <h1>todos</h1>
-      <input
-        ref="new-todo"
-        v-model="todoText"
-        v-on:keypress.enter="addTodo"
-        v-on:blur="addTodo"
-        class="new-todo"
-        placeholder="What needs to be done?"
-      />
-    </header>
+    <Header v-on:add-todo="addTodo" />
     <section v-if="hasTodos" class="main">
       <input id="toggle-all" class="toggle-all" type="checkbox" />
       <label for="toggle-all">Mark all as complete</label>
@@ -37,9 +27,11 @@
 </template>
 
 <script>
+import Header from "./Header";
 import Todo from "./Todo";
 export default {
   components: {
+    Header,
     Todo,
   },
   data: () => {
@@ -49,22 +41,14 @@ export default {
     };
   },
   methods: {
-    addTodo: function () {
-      if (this.todoText.trim().length > 0) {
-        this.todos.push({ text: this.todoText.trim(), completed: false });
-        this.todoText = "";
-      }
+    addTodo: function (text) {
+      this.todos.push({ text: text, completed: false });
     },
   },
   computed: {
     hasTodos: function () {
       return this.todos.length > 0;
     },
-  },
-  created() {
-    this.$nextTick(function () {
-      this.$refs["new-todo"].focus();
-    });
   },
 };
 </script>
