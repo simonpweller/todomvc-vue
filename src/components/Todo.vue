@@ -1,10 +1,20 @@
 <template>
   <li>
     <div class="view">
-      <input class="toggle" type="checkbox" checked />
-      <label>Taste JavaScript</label>
+      <input class="toggle" type="checkbox" />
+      <label>{{ todo.text }}</label>
       <button class="destroy"></button>
     </div>
-    <input class="edit" value="Create a TodoMVC template" />
+    <input class="edit" :value="todo.text" />
   </li>
 </template>
+
+<script>
+export default {
+  props: {
+    todo: {
+      text: String,
+    },
+  },
+};
+</script>
