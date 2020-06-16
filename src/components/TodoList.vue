@@ -27,8 +27,10 @@
 </template>
 
 <script>
+import { v4 as uuid } from "uuid";
 import Header from "./Header";
 import Todo from "./Todo";
+
 export default {
   components: {
     Header,
@@ -42,7 +44,7 @@ export default {
   },
   methods: {
     addTodo: function (text) {
-      this.todos.push({ text: text, completed: false });
+      this.todos.push({ id: uuid(), text: text, completed: false });
     },
   },
   computed: {
