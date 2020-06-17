@@ -2,14 +2,7 @@
   <section class="todoapp">
     <Header v-on:add-todo="addTodo" />
     <section v-if="hasTodos" class="main">
-      <input
-        id="toggle-all"
-        class="toggle-all"
-        type="checkbox"
-        v-on:change="toggleAll"
-        :checked="allCompleted"
-      />
-      <label for="toggle-all">Mark all as complete</label>
+      <ToggleAll :todos="todos" v-on:toggle-all="toggleAll" />
       <ul class="todo-list">
         <Todo
           v-for="todo in todos"
@@ -41,9 +34,11 @@
 import { v4 as uuid } from "uuid";
 import Header from "./Header";
 import Todo from "./Todo";
+import ToggleAll from "./ToggleAll";
 
 export default {
   components: {
+    ToggleAll,
     Header,
     Todo,
   },
@@ -57,19 +52,13 @@ export default {
     addTodo: function (text) {
       this.todos.push({ id: uuid(), text: text, completed: false });
     },
-    toggleAll: function () {
-      this.todos = this.todos.map((todo) => ({
-        ...todo,
-        completed: !this.allCompleted,
-      }));
+    toggleAll: function (completed) {
+      this.todos = this.todos.map((todo) => ({ ...todo, completed }));
     },
   },
   computed: {
     hasTodos: function () {
       return this.todos.length > 0;
-    },
-    allCompleted: function () {
-      return this.todos.every((todo) => todo.completed);
     },
   },
 };
