@@ -13,10 +13,7 @@
       </ul>
     </section>
     <footer v-if="hasTodos" class="footer">
-      <span class="todo-count"
-        ><strong>{{ activeTodoCount }}</strong>
-        {{ activeTodoCount === 1 ? "item" : "items" }} left</span
-      >
+      <TodoCounter :todos="todos" />
       <ul class="filters">
         <li>
           <a class="selected" href="#/">All</a>
@@ -38,9 +35,11 @@ import { v4 as uuid } from "uuid";
 import Header from "./Header";
 import Todo from "./Todo";
 import ToggleAll from "./ToggleAll";
+import TodoCounter from "./TodoCounter";
 
 export default {
   components: {
+    TodoCounter,
     ToggleAll,
     Header,
     Todo,
@@ -61,9 +60,6 @@ export default {
   computed: {
     hasTodos: function () {
       return this.todos.length > 0;
-    },
-    activeTodoCount: function () {
-      return this.todos.filter((todo) => !todo.completed).length;
     },
   },
 };
