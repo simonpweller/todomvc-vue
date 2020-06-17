@@ -15,17 +15,7 @@
     </section>
     <footer v-if="hasTodos" class="footer">
       <TodoCounter :todos="todos" />
-      <ul class="filters">
-        <li>
-          <a class="selected" href="#/">All</a>
-        </li>
-        <li>
-          <a href="#/active">Active</a>
-        </li>
-        <li>
-          <a href="#/completed">Completed</a>
-        </li>
-      </ul>
+      <Filters />
       <button
         class="clear-completed"
         v-show="todos.some((todo) => todo.completed)"
@@ -43,9 +33,11 @@ import Header from "./Header";
 import Todo from "./Todo";
 import ToggleAll from "./ToggleAll";
 import TodoCounter from "./TodoCounter";
+import Filters from "./Filters";
 
 export default {
   components: {
+    Filters,
     TodoCounter,
     ToggleAll,
     Header,
