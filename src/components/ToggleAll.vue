@@ -1,6 +1,5 @@
 <template>
-  <label for="toggle-all">
-    Mark all as complete
+  <div>
     <input
       id="toggle-all"
       class="toggle-all"
@@ -8,7 +7,10 @@
       v-on:change="$emit('toggle-all', !allCompleted)"
       :checked="allCompleted"
     />
-  </label>
+    <label for="toggle-all">
+      Mark all as complete
+    </label>
+  </div>
 </template>
 
 <script>
