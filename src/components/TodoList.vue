@@ -26,7 +26,13 @@
           <a href="#/completed">Completed</a>
         </li>
       </ul>
-      <button class="clear-completed">Clear completed</button>
+      <button
+        class="clear-completed"
+        v-show="todos.some((todo) => todo.completed)"
+        v-on:click="todos = todos.filter((todo) => !todo.completed)"
+      >
+        Clear completed
+      </button>
     </footer>
   </section>
 </template>
