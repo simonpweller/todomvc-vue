@@ -1,7 +1,12 @@
 <template>
-  <li>
+  <li :class="{ completed: todo.completed }">
     <div class="view">
-      <input class="toggle" type="checkbox" />
+      <input
+        class="toggle"
+        type="checkbox"
+        :checked="todo.completed"
+        v-on:change="$emit('toggle')"
+      />
       <label>{{ todo.text }}</label>
       <button class="destroy"></button>
     </div>
@@ -14,6 +19,7 @@ export default {
   props: {
     todo: {
       text: String,
+      completed: Boolean,
     },
   },
 };

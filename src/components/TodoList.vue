@@ -2,10 +2,21 @@
   <section class="todoapp">
     <Header v-on:add-todo="addTodo" />
     <section v-if="hasTodos" class="main">
-      <input id="toggle-all" class="toggle-all" type="checkbox" />
+      <input
+        id="toggle-all"
+        class="toggle-all"
+        type="checkbox"
+        v-on:change="toggleAll"
+        :checked="allCompleted"
+      />
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
-        <Todo v-for="todo in todos" :key="todo.id" v-bind:todo="todo" />
+        <Todo
+          v-for="todo in todos"
+          :key="todo.id"
+          :todo="todo"
+          v-on:toggle="todo.completed = !todo.completed"
+        />
       </ul>
     </section>
     <footer v-if="hasTodos" class="footer">
@@ -46,10 +57,19 @@ export default {
     addTodo: function (text) {
       this.todos.push({ id: uuid(), text: text, completed: false });
     },
+    toggleAll: function () {
+      this.todos = this.todos.map((todo) => ({
+        ...todo,
+        completed: !this.allCompleted,
+      }));
+    },
   },
   computed: {
     hasTodos: function () {
       return this.todos.length > 0;
+    },
+    allCompleted: function () {
+      return this.todos.every((todo) => todo.completed);
     },
   },
 };
