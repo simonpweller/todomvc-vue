@@ -8,7 +8,7 @@
         v-on:change="$emit('toggle')"
       />
       <label>{{ todo.text }}</label>
-      <button class="destroy"></button>
+      <button class="destroy" v-on:click="$emit('destroy')"></button>
     </div>
     <input class="edit" :value="todo.text" />
   </li>

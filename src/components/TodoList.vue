@@ -9,6 +9,7 @@
           :key="todo.id"
           :todo="todo"
           v-on:toggle="todo.completed = !todo.completed"
+          v-on:destroy="todos = todos.filter((t) => t.id !== todo.id)"
         />
       </ul>
     </section>
