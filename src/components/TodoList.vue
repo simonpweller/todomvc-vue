@@ -16,13 +16,10 @@
     <footer v-if="hasTodos" class="footer">
       <TodoCounter :todos="todos" />
       <Filters />
-      <button
-        class="clear-completed"
-        v-show="todos.some((todo) => todo.completed)"
-        v-on:click="todos = todos.filter((todo) => !todo.completed)"
-      >
-        Clear completed
-      </button>
+      <ClearCompleted
+        :todos="todos"
+        v-on:clear="todos = todos.filter((todo) => !todo.completed)"
+      />
     </footer>
   </section>
 </template>
@@ -34,9 +31,11 @@ import Todo from "./Todo";
 import ToggleAll from "./ToggleAll";
 import TodoCounter from "./TodoCounter";
 import Filters from "./Filters";
+import ClearCompleted from "./ClearCompleted";
 
 export default {
   components: {
+    ClearCompleted,
     Filters,
     TodoCounter,
     ToggleAll,
