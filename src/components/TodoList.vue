@@ -9,6 +9,7 @@
           :key="todo.id"
           :todo="todo"
           v-on:toggle="todo.completed = !todo.completed"
+          v-on:update="updateTodo"
           v-on:destroy="todos = todos.filter((t) => t.id !== todo.id)"
         />
       </ul>
@@ -50,6 +51,12 @@ export default {
   methods: {
     addTodo: function (text) {
       this.todos.push({ id: uuid(), text: text, completed: false });
+    },
+    updateTodo: function (updatedTodo) {
+      const todoItemIndex = this.todos.findIndex(
+        (todo) => todo.id === updatedTodo.id
+      );
+      this.todos.splice(todoItemIndex, 1, updatedTodo);
     },
     toggleAll: function (completed) {
       this.todos = this.todos.map((todo) => ({ ...todo, completed }));

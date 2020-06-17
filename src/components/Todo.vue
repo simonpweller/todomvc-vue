@@ -39,7 +39,7 @@ export default {
     finishEditing: function () {
       const trimmedText = this.editedText.trim();
       if (trimmedText.length > 0) {
-        this.todo.text = trimmedText;
+        this.$emit("update", { ...this.todo, text: trimmedText });
         this.editedText = trimmedText;
         this.editing = false;
       } else {
