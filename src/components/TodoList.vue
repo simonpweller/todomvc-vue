@@ -13,7 +13,10 @@
       </ul>
     </section>
     <footer v-if="hasTodos" class="footer">
-      <span class="todo-count"><strong>0</strong> item left</span>
+      <span class="todo-count"
+        ><strong>{{ activeTodoCount }}</strong>
+        {{ activeTodoCount === 1 ? "item" : "items" }} left</span
+      >
       <ul class="filters">
         <li>
           <a class="selected" href="#/">All</a>
@@ -58,6 +61,9 @@ export default {
   computed: {
     hasTodos: function () {
       return this.todos.length > 0;
+    },
+    activeTodoCount: function () {
+      return this.todos.filter((todo) => !todo.completed).length;
     },
   },
 };
