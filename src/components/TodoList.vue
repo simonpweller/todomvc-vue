@@ -8,7 +8,11 @@
           v-for="todo in todos"
           :key="todo.id"
           :todo="todo"
-          v-on:toggle="todo.completed = !todo.completed"
+          v-on:toggle="
+            todos = todos.map((t) =>
+              t.id === todo.id ? { ...t, completed: !t.completed } : t
+            )
+          "
           v-on:update="updateTodo"
           v-on:destroy="todos = todos.filter((t) => t.id !== todo.id)"
         />
@@ -45,8 +49,13 @@ export default {
   },
   data: () => {
     return {
-      todos: [],
+      todos: JSON.parse(localStorage.getItem("todos")) || [],
     };
+  },
+  watch: {
+    todos: function () {
+      localStorage.setItem("todos", JSON.stringify(this.todos));
+    },
   },
   methods: {
     addTodo: function (text) {
