@@ -5,7 +5,7 @@
       <ToggleAll :todos="todos" v-on:toggle-all="toggleAll" />
       <ul class="todo-list">
         <Todo
-          v-for="todo in todos"
+          v-for="todo in filteredTodos"
           :key="todo.id"
           :todo="todo"
           v-on:toggle="
@@ -20,7 +20,7 @@
     </section>
     <footer v-if="hasTodos" class="footer">
       <TodoCounter :todos="todos" />
-      <Filters />
+      <Filters :filter="filter" />
       <ClearCompleted
         :todos="todos"
         v-on:clear="todos = todos.filter((todo) => !todo.completed)"
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { Router } from "director/build/director";
 import { v4 as uuid } from "uuid";
 import Header from "./Header";
 import Todo from "./Todo";
@@ -49,8 +50,17 @@ export default {
   },
   data: () => {
     return {
+      filter: null,
       todos: JSON.parse(localStorage.getItem("todos")) || [],
     };
+  },
+  beforeMount: function () {
+    const router = new Router({
+      "/active": () => (this.filter = "active"),
+      "/completed": () => (this.filter = "completed"),
+      "/": () => (this.filter = null),
+    });
+    router.init();
   },
   watch: {
     todos: function () {
@@ -72,6 +82,13 @@ export default {
     },
   },
   computed: {
+    filteredTodos: function () {
+      return this.filter
+        ? this.todos.filter((todo) =>
+            this.filter === "completed" ? todo.completed : !todo.completed
+          )
+        : this.todos;
+    },
     hasTodos: function () {
       return this.todos.length > 0;
     },
